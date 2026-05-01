@@ -154,7 +154,7 @@ jobs:
           PYEOF
 
       - name: Onboard to Postman v12 API Catalog
-        uses: postman-cs/postman-api-onboarding-action@v0
+        uses: postman-cs/postman-api-onboarding-action@5d5e2e2fc5b1e1b9bcec05ada09d0d2990d00b51
         id: onboard
         with:
           project-name: petstore-api
@@ -196,4 +196,6 @@ jobs:
           | Spec ID | `${{ steps.onboard.outputs.spec-id }}` |
           | Collections | `${{ steps.onboard.outputs.collections-json }}` |
           | Environments | `${{ steps.onboard.outputs.environment-uids-json }}` |
+          | Workspace-link status | `${{ steps.onboard.outputs.workspace-link-status }}` |
+          | Catalog hookup | `${{ steps.onboard.outputs.catalog-link-status || 'see workspace-link-status' }}` |
           EOF
