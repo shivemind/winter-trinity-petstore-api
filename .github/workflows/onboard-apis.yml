@@ -176,11 +176,10 @@ jobs:
           ci-workflow-path: .github/workflows/postman-ci-petstore-api.yml
           monitor-cron: ''
           integration-backend: bifrost
-          org-mode: 'true'
-          postman-team-id: '13569807'
+          org-mode: 'false'
           postman-api-key: ${{ secrets.POSTMAN_API_KEY }}
           postman-access-token: ${{ secrets.POSTMAN_ACCESS_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GH_FALLBACK_TOKEN }}
           gh-fallback-token: ${{ secrets.GH_FALLBACK_TOKEN }}
 
       - name: Write onboarding summary
