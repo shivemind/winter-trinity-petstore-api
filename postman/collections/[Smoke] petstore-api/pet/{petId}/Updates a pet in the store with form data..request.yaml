@@ -14,7 +14,7 @@ queryParams:
     description: Status of pet that needs to be updated
 pathVariables:
   - key: petId
-    value: '7818'
+    value: '8994'
     description: ID of pet that needs to be updated
 auth:
   type: oauth2
@@ -66,11 +66,11 @@ examples:
             },
             "tags": [
               {
-                "id": 4598,
+                "id": 5242,
                 "name": "string"
               },
               {
-                "id": 9782,
+                "id": 9696,
                 "name": "string"
               }
             ],

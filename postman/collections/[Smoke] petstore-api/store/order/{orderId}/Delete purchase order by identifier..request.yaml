@@ -4,7 +4,7 @@ url: '{{baseUrl}}/store/order/:orderId'
 method: DELETE
 pathVariables:
   - key: orderId
-    value: '7818'
+    value: '8994'
     description: ID of the order that needs to be deleted
 scripts:
   - type: afterResponse

@@ -7,7 +7,7 @@ headers:
     value: application/json
 pathVariables:
   - key: petId
-    value: '9833'
+    value: '161'
     description: ID of pet to return
 auth:
   type: apikey
@@ -102,11 +102,11 @@ examples:
             },
             "tags": [
               {
-                "id": 626,
+                "id": 3211,
                 "name": "string"
               },
               {
-                "id": 6109,
+                "id": 5921,
                 "name": "string"
               }
             ],

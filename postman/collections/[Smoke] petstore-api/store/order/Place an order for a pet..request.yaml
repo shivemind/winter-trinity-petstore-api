@@ -14,9 +14,9 @@ body:
       "id": 10,
       "petId": 198772,
       "quantity": 7,
-      "shipDate": "1959-05-19T13:07:03.186Z",
+      "shipDate": "1948-10-25T04:46:49.211Z",
       "status": "approved",
-      "complete": false
+      "complete": true
     }
 scripts:
   - type: afterResponse
@@ -47,9 +47,9 @@ examples:
             "id": 10,
             "petId": 198772,
             "quantity": 7,
-            "shipDate": "1959-05-19T13:07:03.186Z",
+            "shipDate": "1948-10-25T04:46:49.211Z",
             "status": "approved",
-            "complete": false
+            "complete": true
           }
       headers:
         - key: Content-Type

@@ -7,7 +7,7 @@ headers:
     value: application/json
 pathVariables:
   - key: orderId
-    value: '9833'
+    value: '161'
     description: ID of order that needs to be fetched
 scripts:
   - type: afterResponse
@@ -81,9 +81,9 @@ examples:
             "id": 10,
             "petId": 198772,
             "quantity": 7,
-            "shipDate": "1981-09-06T13:34:33.906Z",
+            "shipDate": "1986-03-24T07:35:12.522Z",
             "status": "approved",
-            "complete": false
+            "complete": true
           }
       headers:
         - key: Content-Type

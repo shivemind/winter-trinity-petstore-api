@@ -45,15 +45,15 @@ examples:
               },
               "tags": [
                 {
-                  "id": 9167,
+                  "id": 8457,
                   "name": "string"
                 },
                 {
-                  "id": 4001,
+                  "id": 7775,
                   "name": "string"
                 }
               ],
-              "status": "pending"
+              "status": "available"
             },
             {
               "name": "doggie",
@@ -68,15 +68,15 @@ examples:
               },
               "tags": [
                 {
-                  "id": 9908,
+                  "id": 82,
                   "name": "string"
                 },
                 {
-                  "id": 1390,
+                  "id": 7821,
                   "name": "string"
                 }
               ],
-              "status": "available"
+              "status": "pending"
             }
           ]
       headers:

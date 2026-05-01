@@ -7,7 +7,7 @@ headers:
     value: string
 pathVariables:
   - key: petId
-    value: '9833'
+    value: '161'
     description: Pet id to delete
 auth:
   type: oauth2

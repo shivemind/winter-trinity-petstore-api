@@ -106,11 +106,11 @@ examples:
               },
               "tags": [
                 {
-                  "id": 803,
+                  "id": 2714,
                   "name": "string"
                 },
                 {
-                  "id": 9685,
+                  "id": 6881,
                   "name": "string"
                 }
               ],
@@ -129,15 +129,15 @@ examples:
               },
               "tags": [
                 {
-                  "id": 2077,
+                  "id": 5013,
                   "name": "string"
                 },
                 {
-                  "id": 8160,
+                  "id": 2720,
                   "name": "string"
                 }
               ],
-              "status": "pending"
+              "status": "available"
             }
           ]
       headers:

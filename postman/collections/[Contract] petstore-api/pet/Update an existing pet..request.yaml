@@ -23,11 +23,11 @@ body:
       },
       "tags": [
         {
-          "id": 626,
+          "id": 3211,
           "name": "string"
         },
         {
-          "id": 6109,
+          "id": 5921,
           "name": "string"
         }
       ],
@@ -126,11 +126,11 @@ examples:
             },
             "tags": [
               {
-                "id": 626,
+                "id": 3211,
                 "name": "string"
               },
               {
-                "id": 6109,
+                "id": 5921,
                 "name": "string"
               }
             ],

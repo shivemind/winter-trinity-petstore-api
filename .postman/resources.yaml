@@ -18,3 +18,5 @@ cloudResources:
   environments:
     ../postman/environments/prod.postman_environment.json: 52400725-96600f47-5c53-4e28-ab8b-dee67b764d14
     ../postman/environments/staging.postman_environment.json: 52400725-9531b3e7-ff15-4810-8a24-ed1996ad4cea
+  specs:
+    ../specs/petstore-api-1.0.27.yaml: 3e52fc2d-502c-4feb-83e7-02e882c9f41e
