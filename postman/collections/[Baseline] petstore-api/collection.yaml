@@ -1,0 +1,24 @@
+$schema: https://schema.postman.com/json/draft-2020-12/collection/v3.0.0/
+type: collection
+name: '[Baseline] petstore-api'
+description: |-
+  This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+  Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+  You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+  That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+  Some useful links:
+  - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
+  - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+
+  Contact Support:
+   Email: apiteam@swagger.io
+id: 8d037f73-168e-48dd-9120-bb5ba91d3111
+variables:
+  - key: baseUrl
+    value: https://petstore3.swagger.io/api/v3
+    type: any
+items:
+  - ref: ./pet/folder.yaml
+  - ref: ./store/folder.yaml
+  - ref: ./user/folder.yaml

@@ -1,0 +1,5 @@
+type: folder
+name: store
+items:
+  - ref: ./inventory/folder.yaml
+  - ref: ./order/folder.yaml

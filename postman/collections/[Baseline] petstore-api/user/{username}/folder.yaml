@@ -1,0 +1,6 @@
+type: folder
+name: '{username}'
+items:
+  - ref: ./Get user by user name..request.yaml
+  - ref: ./Update user resource..request.yaml
+  - ref: ./Delete user resource..request.yaml

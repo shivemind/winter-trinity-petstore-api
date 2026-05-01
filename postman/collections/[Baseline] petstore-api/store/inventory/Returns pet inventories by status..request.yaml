@@ -1,0 +1,40 @@
+type: http
+name: Returns pet inventories by status.
+url: '{{baseUrl}}/store/inventory'
+method: GET
+headers:
+  - key: Accept
+    value: application/json
+auth:
+  type: apikey
+  credentials:
+    - key: key
+      value: api_key
+      type: string
+    - key: value
+      value: '{{apiKey}}'
+      type: string
+    - key: in
+      value: header
+      type: string
+examples:
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: json
+        content: |-
+          {
+            "key_0": 9727
+          }
+      headers:
+        - key: Content-Type
+          value: application/json
+    name: successful operation
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: ''
+    name: Unexpected error

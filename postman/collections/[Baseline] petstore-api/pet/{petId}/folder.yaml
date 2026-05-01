@@ -1,0 +1,7 @@
+type: folder
+name: '{petId}'
+items:
+  - ref: ./uploadImage/folder.yaml
+  - ref: ./Find pet by ID..request.yaml
+  - ref: ./Updates a pet in the store with form data..request.yaml
+  - ref: ./Deletes a pet..request.yaml

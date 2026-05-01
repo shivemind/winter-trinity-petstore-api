@@ -1,0 +1,37 @@
+type: http
+name: Delete purchase order by identifier.
+url: '{{baseUrl}}/store/order/:orderId'
+method: DELETE
+pathVariables:
+  - key: orderId
+    value: '4260'
+    description: ID of the order that needs to be deleted
+examples:
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: ''
+    name: order deleted
+  - response:
+      statusCode: 400
+      statusText: Bad Request
+      body:
+        type: text
+        content: ''
+    name: Invalid ID supplied
+  - response:
+      statusCode: 404
+      statusText: Not Found
+      body:
+        type: text
+        content: ''
+    name: Order not found
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: ''
+    name: Unexpected error

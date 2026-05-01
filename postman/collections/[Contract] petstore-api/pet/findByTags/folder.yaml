@@ -1,0 +1,4 @@
+type: folder
+name: findByTags
+items:
+  - ref: ./Finds Pets by tags..request.yaml

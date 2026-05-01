@@ -1,0 +1,20 @@
+workspace:
+  id: eed0449c-6c86-4c0c-b23f-338f6c510c6b
+localResources:
+  collections:
+    - ../postman/collections/[Baseline] petstore-api
+    - ../postman/collections/[Smoke] petstore-api
+    - ../postman/collections/[Contract] petstore-api
+  environments:
+    - ../postman/environments/prod.postman_environment.json
+    - ../postman/environments/staging.postman_environment.json
+  specs:
+    - ../specs/petstore-api-1.0.27.yaml
+cloudResources:
+  collections:
+    ../postman/collections/[Baseline] petstore-api: 52400725-8d037f73-168e-48dd-9120-bb5ba91d3111
+    ../postman/collections/[Smoke] petstore-api: 52400725-fe3f7792-647e-4035-b039-9fd80712dfa7
+    ../postman/collections/[Contract] petstore-api: 52400725-ad332495-ed06-4324-8842-fd4475b73346
+  environments:
+    ../postman/environments/prod.postman_environment.json: 52400725-96600f47-5c53-4e28-ab8b-dee67b764d14
+    ../postman/environments/staging.postman_environment.json: 52400725-9531b3e7-ff15-4810-8a24-ed1996ad4cea

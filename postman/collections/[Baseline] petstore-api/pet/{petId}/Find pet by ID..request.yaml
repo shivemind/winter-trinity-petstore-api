@@ -1,0 +1,78 @@
+type: http
+name: Find pet by ID.
+url: '{{baseUrl}}/pet/:petId'
+method: GET
+headers:
+  - key: Accept
+    value: application/json
+pathVariables:
+  - key: petId
+    value: '4260'
+    description: ID of pet to return
+auth:
+  type: apikey
+  credentials:
+    - key: key
+      value: api_key
+      type: string
+    - key: value
+      value: '{{apiKey}}'
+      type: string
+    - key: in
+      value: header
+      type: string
+examples:
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: json
+        content: |-
+          {
+            "name": "doggie",
+            "photoUrls": [
+              "string",
+              "string"
+            ],
+            "id": 10,
+            "category": {
+              "id": 1,
+              "name": "Dogs"
+            },
+            "tags": [
+              {
+                "id": 9604,
+                "name": "string"
+              },
+              {
+                "id": 7299,
+                "name": "string"
+              }
+            ],
+            "status": "sold"
+          }
+      headers:
+        - key: Content-Type
+          value: application/json
+    name: successful operation
+  - response:
+      statusCode: 400
+      statusText: Bad Request
+      body:
+        type: text
+        content: ''
+    name: Invalid ID supplied
+  - response:
+      statusCode: 404
+      statusText: Not Found
+      body:
+        type: text
+        content: ''
+    name: Pet not found
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: ''
+    name: Unexpected error

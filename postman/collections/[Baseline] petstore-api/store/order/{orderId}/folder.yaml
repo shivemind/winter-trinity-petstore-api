@@ -1,0 +1,5 @@
+type: folder
+name: '{orderId}'
+items:
+  - ref: ./Find purchase order by ID..request.yaml
+  - ref: ./Delete purchase order by identifier..request.yaml

@@ -1,0 +1,60 @@
+type: http
+name: Place an order for a pet.
+url: '{{baseUrl}}/store/order'
+method: POST
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Accept
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "id": 10,
+      "petId": 198772,
+      "quantity": 7,
+      "shipDate": "1980-06-10T08:56:43.408Z",
+      "status": "approved",
+      "complete": true
+    }
+examples:
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: json
+        content: |-
+          {
+            "id": 10,
+            "petId": 198772,
+            "quantity": 7,
+            "shipDate": "1980-06-10T08:56:43.408Z",
+            "status": "approved",
+            "complete": true
+          }
+      headers:
+        - key: Content-Type
+          value: application/json
+    name: successful operation
+  - response:
+      statusCode: 400
+      statusText: Bad Request
+      body:
+        type: text
+        content: ''
+    name: Invalid input
+  - response:
+      statusCode: 422
+      statusText: Unprocessable Entity (WebDAV) (RFC 4918)
+      body:
+        type: text
+        content: ''
+    name: Validation exception
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: ''
+    name: Unexpected error

@@ -1,0 +1,47 @@
+type: http
+name: Logs user into the system.
+url: '{{baseUrl}}/user/login?username=string&password=string'
+method: GET
+headers:
+  - key: Accept
+    value: application/xml
+queryParams:
+  - key: username
+    value: string
+    description: The user name for login
+  - key: password
+    value: string
+    description: The password for login in clear text
+examples:
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: string
+      headers:
+        - key: Content-Type
+          value: application/json
+        - key: X-Rate-Limit
+          value: '539'
+          description: calls per hour allowed by the user
+          disabled: false
+        - key: X-Expires-After
+          value: '1966-06-27T00:48:10.065Z'
+          description: date in UTC when token expires
+          disabled: false
+    name: successful operation
+  - response:
+      statusCode: 400
+      statusText: Bad Request
+      body:
+        type: text
+        content: ''
+    name: Invalid username/password supplied
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: ''
+    name: Unexpected error

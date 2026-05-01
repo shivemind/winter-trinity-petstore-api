@@ -1,0 +1,4 @@
+type: folder
+name: uploadImage
+items:
+  - ref: ./Uploads an image..request.yaml

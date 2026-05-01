@@ -1,0 +1,51 @@
+type: http
+name: Find purchase order by ID.
+url: '{{baseUrl}}/store/order/:orderId'
+method: GET
+headers:
+  - key: Accept
+    value: application/json
+pathVariables:
+  - key: orderId
+    value: '4260'
+    description: ID of order that needs to be fetched
+examples:
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: json
+        content: |-
+          {
+            "id": 10,
+            "petId": 198772,
+            "quantity": 7,
+            "shipDate": "1980-06-10T08:56:43.408Z",
+            "status": "approved",
+            "complete": true
+          }
+      headers:
+        - key: Content-Type
+          value: application/json
+    name: successful operation
+  - response:
+      statusCode: 400
+      statusText: Bad Request
+      body:
+        type: text
+        content: ''
+    name: Invalid ID supplied
+  - response:
+      statusCode: 404
+      statusText: Not Found
+      body:
+        type: text
+        content: ''
+    name: Order not found
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: ''
+    name: Unexpected error

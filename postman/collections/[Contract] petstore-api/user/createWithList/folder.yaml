@@ -1,0 +1,4 @@
+type: folder
+name: createWithList
+items:
+  - ref: ./Creates list of users with given input array..request.yaml

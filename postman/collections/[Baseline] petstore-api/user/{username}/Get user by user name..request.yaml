@@ -1,0 +1,53 @@
+type: http
+name: Get user by user name.
+url: '{{baseUrl}}/user/:username'
+method: GET
+headers:
+  - key: Accept
+    value: application/json
+pathVariables:
+  - key: username
+    value: string
+    description: The name that needs to be fetched. Use user1 for testing
+examples:
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: json
+        content: |-
+          {
+            "id": 10,
+            "username": "theUser",
+            "firstName": "John",
+            "lastName": "James",
+            "email": "john@email.com",
+            "password": "12345",
+            "phone": "12345",
+            "userStatus": 1
+          }
+      headers:
+        - key: Content-Type
+          value: application/json
+    name: successful operation
+  - response:
+      statusCode: 400
+      statusText: Bad Request
+      body:
+        type: text
+        content: ''
+    name: Invalid username supplied
+  - response:
+      statusCode: 404
+      statusText: Not Found
+      body:
+        type: text
+        content: ''
+    name: User not found
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: ''
+    name: Unexpected error

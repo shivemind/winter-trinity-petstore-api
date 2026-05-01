@@ -1,0 +1,8 @@
+workflows:
+  syncSpecToCollection:
+    - spec: ../specs/petstore-api-1.0.27.yaml
+      collection: ../postman/collections/[Baseline] petstore-api
+    - spec: ../specs/petstore-api-1.0.27.yaml
+      collection: ../postman/collections/[Smoke] petstore-api
+    - spec: ../specs/petstore-api-1.0.27.yaml
+      collection: ../postman/collections/[Contract] petstore-api

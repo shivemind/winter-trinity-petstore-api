@@ -1,0 +1,4 @@
+type: folder
+name: logout
+items:
+  - ref: ./Logs out current logged in user session..request.yaml

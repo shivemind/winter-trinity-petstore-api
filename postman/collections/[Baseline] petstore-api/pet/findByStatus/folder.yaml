@@ -1,0 +1,4 @@
+type: folder
+name: findByStatus
+items:
+  - ref: ./Finds Pets by status..request.yaml

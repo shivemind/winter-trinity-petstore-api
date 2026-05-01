@@ -1,0 +1,8 @@
+type: folder
+name: pet
+items:
+  - ref: ./findByStatus/folder.yaml
+  - ref: ./findByTags/folder.yaml
+  - ref: ./{petId}/folder.yaml
+  - ref: ./Update an existing pet..request.yaml
+  - ref: ./Add a new pet to the store..request.yaml

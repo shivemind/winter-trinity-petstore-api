@@ -1,0 +1,66 @@
+type: http
+name: Uploads an image.
+url: '{{baseUrl}}/pet/:petId/uploadImage?additionalMetadata=string'
+method: POST
+headers:
+  - key: Content-Type
+    value: application/octet-stream
+  - key: Accept
+    value: application/json
+queryParams:
+  - key: additionalMetadata
+    value: string
+    description: Additional Metadata
+pathVariables:
+  - key: petId
+    value: '4260'
+    description: ID of pet to update
+auth:
+  type: oauth2
+  credentials:
+    - key: scope
+      value: write:pets read:pets
+      type: string
+    - key: authUrl
+      value: https://petstore3.swagger.io/oauth/authorize
+      type: string
+    - key: grant_type
+      value: implicit
+      type: string
+examples:
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: json
+        content: |-
+          {
+            "code": 7085,
+            "type": "string",
+            "message": "string"
+          }
+      headers:
+        - key: Content-Type
+          value: application/json
+    name: successful operation
+  - response:
+      statusCode: 400
+      statusText: Bad Request
+      body:
+        type: text
+        content: ''
+    name: No file uploaded
+  - response:
+      statusCode: 404
+      statusText: Not Found
+      body:
+        type: text
+        content: ''
+    name: Pet not found
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: ''
+    name: Unexpected error

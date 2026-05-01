@@ -1,0 +1,8 @@
+type: folder
+name: user
+items:
+  - ref: ./createWithList/folder.yaml
+  - ref: ./login/folder.yaml
+  - ref: ./logout/folder.yaml
+  - ref: ./{username}/folder.yaml
+  - ref: ./Create user..request.yaml

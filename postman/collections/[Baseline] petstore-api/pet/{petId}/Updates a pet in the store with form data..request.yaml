@@ -1,0 +1,78 @@
+type: http
+name: Updates a pet in the store with form data.
+url: '{{baseUrl}}/pet/:petId?name=string&status=string'
+method: POST
+headers:
+  - key: Accept
+    value: application/json
+queryParams:
+  - key: name
+    value: string
+    description: Name of pet that needs to be updated
+  - key: status
+    value: string
+    description: Status of pet that needs to be updated
+pathVariables:
+  - key: petId
+    value: '4260'
+    description: ID of pet that needs to be updated
+auth:
+  type: oauth2
+  credentials:
+    - key: scope
+      value: write:pets read:pets
+      type: string
+    - key: authUrl
+      value: https://petstore3.swagger.io/oauth/authorize
+      type: string
+    - key: grant_type
+      value: implicit
+      type: string
+examples:
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: json
+        content: |-
+          {
+            "name": "doggie",
+            "photoUrls": [
+              "string",
+              "string"
+            ],
+            "id": 10,
+            "category": {
+              "id": 1,
+              "name": "Dogs"
+            },
+            "tags": [
+              {
+                "id": 9604,
+                "name": "string"
+              },
+              {
+                "id": 7299,
+                "name": "string"
+              }
+            ],
+            "status": "sold"
+          }
+      headers:
+        - key: Content-Type
+          value: application/json
+    name: successful operation
+  - response:
+      statusCode: 400
+      statusText: Bad Request
+      body:
+        type: text
+        content: ''
+    name: Invalid input
+  - response:
+      statusCode: 200
+      statusText: OK
+      body:
+        type: text
+        content: ''
+    name: Unexpected error
