@@ -14,9 +14,9 @@ body:
       "id": 10,
       "petId": 198772,
       "quantity": 7,
-      "shipDate": "1983-07-20T03:16:04.152Z",
+      "shipDate": "1987-05-01T23:05:22.070Z",
       "status": "approved",
-      "complete": true
+      "complete": false
     }
 examples:
   - response:
@@ -29,9 +29,9 @@ examples:
             "id": 10,
             "petId": 198772,
             "quantity": 7,
-            "shipDate": "1983-07-20T03:16:04.152Z",
+            "shipDate": "1987-05-01T23:05:22.070Z",
             "status": "approved",
-            "complete": true
+            "complete": false
           }
       headers:
         - key: Content-Type

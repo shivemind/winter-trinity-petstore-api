@@ -84,11 +84,11 @@ examples:
         - key: Content-Type
           value: application/json
         - key: X-Rate-Limit
-          value: '42'
+          value: '893'
           description: calls per hour allowed by the user
           disabled: false
         - key: X-Expires-After
-          value: '1954-09-25T16:39:46.722Z'
+          value: '1975-03-30T00:33:00.207Z'
           description: date in UTC when token expires
           disabled: false
     name: successful operation

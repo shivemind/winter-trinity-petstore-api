@@ -86,7 +86,8 @@ examples:
         type: json
         content: |-
           {
-            "key_0": 2660
+            "key_0": 3682,
+            "key_1": 5516
           }
       headers:
         - key: Content-Type

@@ -60,15 +60,15 @@ examples:
               },
               "tags": [
                 {
-                  "id": 8143,
+                  "id": 9279,
                   "name": "string"
                 },
                 {
-                  "id": 9080,
+                  "id": 6269,
                   "name": "string"
                 }
               ],
-              "status": "sold"
+              "status": "pending"
             },
             {
               "name": "doggie",
@@ -83,11 +83,11 @@ examples:
               },
               "tags": [
                 {
-                  "id": 2674,
+                  "id": 266,
                   "name": "string"
                 },
                 {
-                  "id": 396,
+                  "id": 8851,
                   "name": "string"
                 }
               ],

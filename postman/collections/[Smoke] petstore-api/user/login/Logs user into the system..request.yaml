@@ -41,11 +41,11 @@ examples:
         - key: Content-Type
           value: application/json
         - key: X-Rate-Limit
-          value: '2646'
+          value: '8810'
           description: calls per hour allowed by the user
           disabled: false
         - key: X-Expires-After
-          value: '1968-02-09T18:27:31.696Z'
+          value: '1992-09-23T02:04:00.277Z'
           description: date in UTC when token expires
           disabled: false
     name: successful operation

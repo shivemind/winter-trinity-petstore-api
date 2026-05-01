@@ -13,7 +13,7 @@ queryParams:
     description: Additional Metadata
 pathVariables:
   - key: petId
-    value: '8994'
+    value: '4808'
     description: ID of pet to update
 auth:
   type: oauth2
@@ -53,7 +53,7 @@ examples:
         type: json
         content: |-
           {
-            "code": 6735,
+            "code": 112,
             "type": "string",
             "message": "string"
           }

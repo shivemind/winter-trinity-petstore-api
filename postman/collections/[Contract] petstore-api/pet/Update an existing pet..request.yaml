@@ -23,15 +23,15 @@ body:
       },
       "tags": [
         {
-          "id": 3211,
+          "id": 2138,
           "name": "string"
         },
         {
-          "id": 5921,
+          "id": 7415,
           "name": "string"
         }
       ],
-      "status": "sold"
+      "status": "pending"
     }
 auth:
   type: oauth2
@@ -126,15 +126,15 @@ examples:
             },
             "tags": [
               {
-                "id": 3211,
+                "id": 2138,
                 "name": "string"
               },
               {
-                "id": 5921,
+                "id": 7415,
                 "name": "string"
               }
             ],
-            "status": "sold"
+            "status": "pending"
           }
       headers:
         - key: Content-Type
