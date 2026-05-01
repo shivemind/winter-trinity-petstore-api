@@ -1,4 +1,5 @@
 name: Onboard petstore-api to Postman v12
+# Spec Hub upload + collection generation + governance + Bifrost catalog link
 
 on:
   push:

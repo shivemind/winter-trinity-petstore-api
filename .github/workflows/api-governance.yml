@@ -1,4 +1,5 @@
 name: API Governance
+# Postman API governance — Spectral lint + manifest validation on PR + push to main
 
 on:
   pull_request:

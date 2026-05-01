@@ -1,0 +1,15 @@
+{
+  "projectName": "petstore-api",
+  "specPath": "specs/petstore-api-1.0.27.yaml",
+  "collections": [
+    "postman/collections/[Baseline] petstore-api/collection.yaml",
+    "postman/collections/[Smoke] petstore-api/collection.yaml",
+    "postman/collections/[Contract] petstore-api/collection.yaml"
+  ],
+  "environments": [
+    "postman/environments/prod.postman_environment.json",
+    "postman/environments/staging.postman_environment.json"
+  ],
+  "workflowDirectories": [".github/workflows"],
+  "hasCluster": false
+}
