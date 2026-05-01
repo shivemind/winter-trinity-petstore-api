@@ -1,0 +1,89 @@
+name: API Governance
+
+on:
+  pull_request:
+    paths:
+      - 'specs/**'
+      - 'api-manifest.json'
+  push:
+    branches: [main]
+    paths:
+      - 'specs/**'
+      - 'api-manifest.json'
+
+jobs:
+  validate-manifest:
+    name: Validate manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check JSON syntax
+        run: jq empty api-manifest.json
+
+      - name: Verify every API entry has required fields
+        run: |
+          ERRORS=$(jq -r '
+            .apis[] |
+            select(
+              (.name | length) == 0 or
+              (.spec_path | length) == 0 or
+              (.environments | length) == 0
+            ) | .name // "unnamed"
+          ' api-manifest.json)
+          if [ -n "$ERRORS" ]; then
+            echo "::error::APIs missing required fields: $ERRORS"
+            exit 1
+          fi
+
+      - name: Verify referenced spec files exist
+        run: |
+          jq -r '.apis[].spec_path' api-manifest.json | while read -r SPEC; do
+            if [ ! -f "$SPEC" ]; then
+              echo "::error::Spec file not found: $SPEC"
+              exit 1
+            fi
+          done
+
+  lint-specs:
+    name: Lint OpenAPI specs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Spectral
+        run: npm install -g @stoplight/spectral-cli
+
+      - name: Lint specs referenced in manifest
+        run: |
+          EXIT=0
+          jq -r '.apis[].spec_path' api-manifest.json | while read -r SPEC; do
+            echo "::group::$SPEC"
+            spectral lint "$SPEC" --fail-severity warn || EXIT=1
+            echo "::endgroup::"
+          done
+          exit $EXIT
+
+  validate-specs:
+    name: Validate OpenAPI structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install swagger-cli
+        run: npm install -g @apidevtools/swagger-cli
+
+      - name: Validate specs
+        run: |
+          jq -r '.apis[].spec_path' api-manifest.json | while read -r SPEC; do
+            echo "Validating: $SPEC"
+            swagger-cli validate "$SPEC"
+          done

@@ -1,0 +1,27 @@
+{
+  "organization": "Winter Trinity",
+  "domain": "winter-trinity-platform",
+  "domain_code": "WT",
+  "governance_mapping": {
+    "winter-trinity-platform": "Winter Trinity API Platform"
+  },
+  "private_network": {
+    "folder_name": "Winter Trinity APIs",
+    "folder_description": "Winter Trinity APIs that have passed lint, smoke, and contract tests."
+  },
+  "apis": [
+    {
+      "name": "petstore-api",
+      "spec_path": "specs/petstore-api-1.0.27.yaml",
+      "spec_url": "",
+      "environments": [
+        "prod",
+        "staging"
+      ],
+      "runtime_urls": {
+        "prod": "https://petstore3.swagger.io/api/v3",
+        "staging": "https://petstore3.swagger.io/api/v3"
+      }
+    }
+  ]
+}

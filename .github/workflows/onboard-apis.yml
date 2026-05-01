@@ -1,0 +1,199 @@
+name: Onboard petstore-api to Postman v12
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'specs/**'
+      - 'api-manifest.json'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  onboard:
+    name: Onboard petstore-api
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve spec URL
+        id: spec-url
+        run: |
+          SPEC_PATH=$(jq -r '.apis[0].spec_path' api-manifest.json)
+          echo "url=https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/$SPEC_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve existing Postman asset IDs
+        id: existing
+        env:
+          POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+        run: |
+          pip install --quiet pyyaml
+          python3 << 'PYEOF'
+          import json, os, sys, urllib.request, yaml
+
+          out_path = os.environ["GITHUB_OUTPUT"]
+          api_key = os.environ.get("POSTMAN_API_KEY", "")
+
+          manifest = json.load(open("api-manifest.json"))
+          api_name = manifest["apis"][0]["name"]
+          domain_code = manifest.get("domain_code", "")
+          expected_ws_name = f"[{domain_code}] {api_name}" if domain_code else api_name
+
+          def pm_get(endpoint, params=""):
+              url = f"https://api.getpostman.com{endpoint}{'?' + params if params else ''}"
+              req = urllib.request.Request(url, headers={
+                  "X-Api-Key": api_key,
+                  "Accept": "application/vnd.api.v10+json",
+              })
+              with urllib.request.urlopen(req, timeout=15) as resp:
+                  return json.loads(resp.read())
+
+          results = {
+              "workspace-id": "",
+              "spec-id": "",
+              "baseline-collection-id": "",
+              "smoke-collection-id": "",
+              "contract-collection-id": "",
+              "monitor-id": "",
+              "mock-url": "",
+          }
+
+          # --- Phase 1: read .postman/resources.yaml if it exists ---
+          resources_path = ".postman/resources.yaml"
+          if os.path.isfile(resources_path):
+              with open(resources_path) as f:
+                  data = yaml.safe_load(f) or {}
+              results["workspace-id"] = (data.get("workspace") or {}).get("id", "")
+              for path, uid in (data.get("cloudResources") or {}).get("collections", {}).items():
+                  if "[Baseline]" in path:
+                      results["baseline-collection-id"] = uid
+                  elif "[Smoke]" in path:
+                      results["smoke-collection-id"] = uid
+                  elif "[Contract]" in path:
+                      results["contract-collection-id"] = uid
+              if results["workspace-id"]:
+                  print(f"Found workspace in resources.yaml: {results['workspace-id']}")
+
+          # --- Phase 2: fallback — search by workspace name to prevent duplicates ---
+          if not results["workspace-id"] and api_key:
+              print(f"No workspace in resources.yaml — searching Postman for '{expected_ws_name}'")
+              try:
+                  workspaces = pm_get("/workspaces").get("workspaces", [])
+                  for ws in workspaces:
+                      if ws.get("name") == expected_ws_name:
+                          results["workspace-id"] = ws["id"]
+                          print(f"  Found existing workspace by name: {ws['id']}")
+                          break
+                  if not results["workspace-id"]:
+                      print(f"  No existing workspace found — will create new")
+              except Exception as e:
+                  print(f"  Warning: workspace search failed: {e}")
+
+          ws_id = results["workspace-id"]
+          if not ws_id or not api_key:
+              print("First run or no API key — all assets will be created fresh")
+              with open(out_path, "a") as f:
+                  for k, v in results.items():
+                      f.write(f"{k}={v}\n")
+              raise SystemExit(0)
+
+          # --- Phase 3: resolve existing specs, mocks, monitors in the workspace ---
+          if not results["baseline-collection-id"]:
+              try:
+                  cols = pm_get("/collections", f"workspace={ws_id}").get("collections", [])
+                  for c in cols:
+                      name = c.get("name", "")
+                      uid = c.get("uid", "")
+                      if "[Baseline]" in name and not results["baseline-collection-id"]:
+                          results["baseline-collection-id"] = uid
+                      elif "[Smoke]" in name and not results["smoke-collection-id"]:
+                          results["smoke-collection-id"] = uid
+                      elif "[Contract]" in name and not results["contract-collection-id"]:
+                          results["contract-collection-id"] = uid
+              except Exception as e:
+                  print(f"  Warning: collection lookup failed: {e}")
+
+          try:
+              specs = pm_get("/specs", f"workspaceId={ws_id}").get("specs", [])
+              for s in specs:
+                  if s.get("name") == api_name:
+                      results["spec-id"] = s["id"]
+                      break
+          except Exception as e:
+              print(f"  Warning: spec lookup failed: {e}")
+
+          try:
+              mocks = pm_get("/mocks").get("mocks", [])
+              for m in mocks:
+                  if api_name in m.get("name", "") and m.get("mockUrl"):
+                      results["mock-url"] = m["mockUrl"]
+                      break
+          except Exception as e:
+              print(f"  Warning: mock lookup failed: {e}")
+
+          try:
+              monitors = pm_get("/monitors").get("monitors", [])
+              for m in monitors:
+                  if api_name in m.get("name", ""):
+                      results["monitor-id"] = m["uid"]
+                      break
+          except Exception as e:
+              print(f"  Warning: monitor lookup failed: {e}")
+
+          with open(out_path, "a") as f:
+              for k, v in results.items():
+                  f.write(f"{k}={v}\n")
+
+          print("Resolved existing asset IDs for reuse:")
+          for k, v in results.items():
+              print(f"  {k}={v or '(will create)'}")
+          PYEOF
+
+      - name: Onboard to Postman v12 API Catalog
+        uses: postman-cs/postman-api-onboarding-action@v0
+        id: onboard
+        with:
+          project-name: petstore-api
+          domain: winter-trinity-platform
+          domain-code: WT
+          workspace-id: ${{ steps.existing.outputs.workspace-id }}
+          spec-id: ${{ steps.existing.outputs.spec-id }}
+          baseline-collection-id: ${{ steps.existing.outputs.baseline-collection-id }}
+          smoke-collection-id: ${{ steps.existing.outputs.smoke-collection-id }}
+          contract-collection-id: ${{ steps.existing.outputs.contract-collection-id }}
+          monitor-id: ${{ steps.existing.outputs.monitor-id }}
+          mock-url: ${{ steps.existing.outputs.mock-url }}
+          collection-sync-mode: reuse
+          spec-url: ${{ steps.spec-url.outputs.url }}
+          spec-path: specs/petstore-api-1.0.27.yaml
+          environments-json: '["prod", "staging"]'
+          env-runtime-urls-json: '{"prod": "https://petstore3.swagger.io/api/v3"}'
+          governance-mapping-json: '{"winter-trinity-platform": "Winter Trinity API Platform"}'
+          generate-ci-workflow: true
+          ci-workflow-path: .github/workflows/postman-ci-petstore-api.yml
+          monitor-cron: ''
+          integration-backend: bifrost
+          org-mode: 'true'
+          postman-team-id: '13569807'
+          postman-api-key: ${{ secrets.POSTMAN_API_KEY }}
+          postman-access-token: ${{ secrets.POSTMAN_ACCESS_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          gh-fallback-token: ${{ secrets.GH_FALLBACK_TOKEN }}
+
+      - name: Write onboarding summary
+        if: always()
+        run: |
+          cat >> "$GITHUB_STEP_SUMMARY" << 'EOF'
+          ## petstore-api
+
+          | Asset | Value |
+          |-------|-------|
+          | Workspace | ${{ steps.onboard.outputs.workspace-url }} |
+          | Workspace ID | `${{ steps.onboard.outputs.workspace-id }}` |
+          | Spec ID | `${{ steps.onboard.outputs.spec-id }}` |
+          | Collections | `${{ steps.onboard.outputs.collections-json }}` |
+          | Environments | `${{ steps.onboard.outputs.environment-uids-json }}` |
+          EOF
