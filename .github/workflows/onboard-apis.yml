@@ -154,8 +154,13 @@ jobs:
           PYEOF
 
       - name: Onboard to Postman v12 API Catalog
-        uses: postman-cs/postman-api-onboarding-action@5d5e2e2fc5b1e1b9bcec05ada09d0d2990d00b51
+        # Pinned to shivemind fork. Internal references chain to:
+        #   shivemind/postman-bootstrap-action@ed7ddb3 (private-repo Auth fix)
+        #   postman-cs/postman-repo-sync-action@b1f1fd9
+        uses: shivemind/postman-api-onboarding-action@2cceb69d2836cc7a91d0916c03011a0317572e25
         id: onboard
+        env:
+          GH_FALLBACK_TOKEN: ${{ secrets.GH_FALLBACK_TOKEN }}
         with:
           project-name: petstore-api
           domain: winter-trinity-platform
